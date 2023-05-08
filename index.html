@@ -1,63 +1,82 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
     <title>BMI Calculator</title>
+    
     <style>
-      body {
-        background-image: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80');
+      body { 
+        background-image: url('background.jpg');
+        background-size: cover;
         font-family: 'Open Sans', sans-serif;
       }
       
-      #calculator {
-        width: 400px;
-        background-color: rgba(255, 255, 255, 0.3);
-        margin: 100px auto;
-        padding: 20px;
+      form { 
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        width: 30%;
       }
       
-      input[type="text"], input[type="number"] {
+      input[type="text"], input[type="number"] { 
+        padding: 1rem;
         width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        margin-top: 6px;
-        margin-bottom: 16px;
+        margin-bottom: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
       }
       
-      input[type="submit"] {
-        background-color: #4CAF50;
-        color: white;
-        padding: 12px 20px;
+      input[type="submit"] { 
+        background: #0091ea;
+        color: #fff;
+        padding: 0.8rem;
+        width: 100%;
+        margin-top: 0.5rem;
         border: none;
+        border-radius: 4px;
+        font-weight: bold;
         cursor: pointer;
+      }
+      
+      .result {
+        background: #f2f2f2;
+        padding: 1rem;
+        margin-top: 1rem;
+        text-align: center;
       }
     </style>
   </head>
   <body>
-    <div id="calculator">
-      <h2>BMI Calculator</h2>
-      <form method="post">
-        <label for="weight">Weight (in kg)</label>
-        <input type="number" name="weight" placeholder="Your Weight.." required>
-        <label for="height">Height (in cm)</label>
-        <input type="number" name="height" placeholder="Your Height.." required>
-        <input type="submit" name="calculate" value="Calculate BMI">
-      </form>
-      <div id="result"></div>
-    </div>
+    
+    <h1>BMI Calculator</h1>
+    
+    <form>
+      <label>Height (cm):</label>
+      <input type="number" name="height">
+      
+      <label>Weight (kg):</label>
+      <input type="number" name="weight">
+      
+      <input type="submit" value="Calculate BMI">
+    </form>
+    
+    <div class="result"></div>
+    
     <script>
-      document.querySelector('form').onsubmit = function(event) {
-        // prevent form from submitting
+      const form = document.querySelector('form');
+      const result = document.querySelector('.result');
+      
+      form.addEventListener('submit', function(event) {
         event.preventDefault();
-        // get weight and height values
-        let weight = document.querySelector('input[name="weight"]').value;
-        let height = document.querySelector('input[name="height"]').value;
-        // calculate BMI
-        let bmi = Math.round(weight / Math.pow(height * 0.01, 2));
-        // display result
-        let result = document.querySelector('#result');
-        result.innerHTML = 'Your BMI is ' + bmi;
-      }
+        
+        const height = +form.querySelector('input[name="height"]').value;
+        const weight = +form.querySelector('input[name="weight"]').value;
+        
+        const bmi = weight / (height/100 * height/100);
+        
+        result.textContent = 'Your BMI is ' + bmi.toFixed(2);
+      });
     </script>
+    
   </body>
 </html>
